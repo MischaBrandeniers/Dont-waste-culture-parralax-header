@@ -1,0 +1,93 @@
+<section class="section section-{{ section.id }}" style="margin-bottom: 0px;">
+   <div class="header-afbeelding" id="parallax">
+    <div class="Slideshow__Content Slideshow__Content--middleCenter">
+              <header class="SectionHeader" style="visibility: inherit; opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
+                <h3 class="SectionHeader__SubHeading Heading u-h6">{{ section.settings.title }}</h3><h2 class="SectionHeader__Heading SectionHeader__Heading--emphasize Heading u-h1">{{ section.settings.title_2 }}</h2><div class="SectionHeader__ButtonWrapper" style="visibility: inherit; opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
+                <div style="z-index: 999;" class="ButtonGroup ButtonGroup--spacingSmall "><a href="{{ section.settings.url }}" class="ButtonGroup__Item Button">{{ section.settings.button }}</a></div>
+              </div>
+              </header>
+            </div>
+        </div>
+
+<style>
+
+#parallax {
+  position: relative;
+  background-size: cover;
+  width: 100%;
+  height: 89vh;
+  background-image: url(https://cdn.shopify.com/s/files/1/0084/8461/8300/files/overlay-blur.png?v=1629387678), url(), url({{ section.settings.image | img_url: 'master' }});
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position: 50% 50%;
+}
+</style>    
+
+<script>
+    (function() {
+    // Add event listener
+    document.addEventListener("mousemove", parallax);
+    const elem = document.querySelector("#parallax");
+    // Magic happens here
+    function parallax(e) {
+        let _w = window.innerWidth/2;
+        let _h = window.innerHeight/2;
+        let _mouseX = e.clientX;
+        let _mouseY = e.clientY;
+        let _depth1 = `${50 - (_mouseX - _w) * 0.01}% ${50 - (_mouseY - _h) * 0.01}%`;
+        let _depth2 = `${50 - (_mouseX - _w) * 0.02}% ${50 - (_mouseY - _h) * 0.02}%`;
+        let _depth3 = `${50 - (_mouseX - _w) * 0.06}% ${50 - (_mouseY - _h) * 0.06}%`;
+        let x = `${_depth3}, ${_depth2}, ${_depth1}`;
+        console.log(x);
+        elem.style.backgroundPosition = x;
+    }
+
+})();
+</script>
+     
+</section>  
+  {% schema %}
+  {
+    "name": "parrallax",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "This section can be used to embed widgets (SoundCloud...)."
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Your title"
+      },
+      {
+        "type": "text",
+        "id": "title_2",
+        "label": "Heading-2",
+        "default": "Your title"
+      },
+      {
+        "type": "text",
+        "id": "button",
+        "label": "button",
+        "default": "Your title"
+      },
+      {
+        "type": "url",
+        "id": "url",
+        "label": "button_url"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "image-1"
+      }
+    ],
+    "presets": [
+      {
+        "category": "Advanced",
+        "name": "Parallax"
+      }
+    ]
+  }
+  {% endschema %}
